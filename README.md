@@ -32,14 +32,14 @@ First of all, thanks to these great cheat sheets.
 ### Docker info
 Command | Description
 --- | ---
-docker version | provides full description of docker version
+docker version | [provides full description of docker version](https://docs.docker.com/engine/reference/commandline/version/)
 docker -v | provides a short description of docker version
-docker info | display system wide information
+docker info | [display system wide information](https://docs.docker.com/engine/reference/commandline/info/)
 docker info --format '{{.DriverStatus}}' | display 'DriverStatus' fragment from docker information
 docker info --format '{{json .DriverStatus}}' | display 'DriverStatus' fragment from docker information in JSON format
 docker version --format '{{.Server.Version}}' | display the server version
 
-### Images
+### [Images](https://docs.docker.com/engine/reference/commandline/images/)
 Command | Description
 --- | ---
 docker images | shows all images
@@ -47,7 +47,7 @@ docker rmi $(docker images -q) | remove all images
 docker rmi -f [image-name] | force remove an image by name
 docker image rm [image-name] | remove image by name
 
-### Start a container
+### [Start a container](https://docs.docker.com/engine/reference/builder/#run)
 Command | Description
 --- | ---
 docker run --name [container-name] [image-name]    |  Specific container name
@@ -55,8 +55,9 @@ docker run --name [container-name] -d [image-name] |  Specific container name, r
 docker run --name [container-name] -it [image-name]|  Specific container name, access container shell
 winpty docker run -it {Image name}                 |  (Git Bash)
 docker container run --rm [image-name]             |  Run container based on specified imaged and immediately remove it once it stops
+docker run -it -v [volume-name]:[container-mount-path] [image-name] | Run container and bind mount volume
 
-### Containers
+### [Containers](https://docs.docker.com/engine/reference/commandline/ps/)
 Command | Description
 --- | ---
 docker ps -a                                          | List all containers
@@ -67,3 +68,9 @@ docker rm $(docker ps -aq)                            | Remove all containers
 docker rm [container-ID]                              |  Remove container by ID
 docker rm [container-name]                            |  Remove container by container name
 
+### [Volumes](https://docs.docker.com/engine/reference/commandline/volume_create/)
+Command | Description
+--- | ---
+docker volume create [volume-name]   | Create volume
+docker volume inspect [volume-name]  | Display detailed information on one or more volumes
+docker volume rm [volume-name]       | Remove one or more volumes
