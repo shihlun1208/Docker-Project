@@ -65,8 +65,9 @@ docker ps --filter status=running                     | Check container status w
 docker stop $(docker ps --filter status=running -q)   | Stop container which is running
 docker stop $(docker ps -aq)                          | Stop all running containers
 docker rm $(docker ps -aq)                            | Remove all containers
-docker rm [container-ID]                              |  Remove container by ID
-docker rm [container-name]                            |  Remove container by container name
+docker rm [container-ID]                              | Remove container by ID
+docker rm [container-name]                            | Remove container by container name
+docker exec -u 0 -it [container-ID] /bin/bash         | Run a existing container, access container shell with user root
 
 ### [Volumes](https://docs.docker.com/engine/reference/commandline/volume_create/)
 Command | Description

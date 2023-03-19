@@ -72,3 +72,43 @@ cat initialAdminPassword
 # 這樣就可以打印出 Jenkins 的 initialAdminPassword 密碼了。
 # 請複製這個密碼，然後在瀏覽器中貼上此密碼，即可解鎖 Jenkins。
 ```
+---
+## 開始一個作業
+### Jenkins 端
+1. 新增作業
+
+2. 輸入項目名稱 > 建置Free-Style專案 > 確定 > 接著會轉到 Configure 頁面
+3. 原始碼管理的地方 > 選擇 GIT \
+設定 Repository URL: https://github.com/shihlun1208/Docker-Project.git \
+Credentials: github帳號密碼 \
+Branches to build: */main
+4. 建置觸發程序 > 選擇 GitHub hook trigger for GITScm polling
+5. Build Steps > 執行 Shell > 打上你想要的測試代碼 (以下範例)
+```
+echo "This is a test"
+cat README.md
+```
+6. 儲存
+7. 左側有個馬上建置的選項 測試看看能不能建置，不行的話回去檢查組態是不是有設定錯誤
+---
+### Github 端
+* 若有需要github有被push時自動觸發jenkins，則需要在github中設定 webhooks
+1. 在Github repository頁面，選擇webhooks > Add webhook
+
+如果你的 Jenkins 安裝在本地端的電腦上並且使用 localhost 作為網址，那麼 GitHub 無法直接將 Webhooks 事件推送到你的 Jenkins。因為 GitHub 無法將事件推送到本地端。你需要讓 Jenkins 可以從外部存取才能使用 Webhooks。有兩個常用的方法可以解決這個問題：
+
+* 將 Jenkins 安裝到一個可以從外部存取的伺服器上，例如使用雲端服務提供商（例如 AWS、Azure 或 Google Cloud）或自己的伺服器。
+
+* 使用 ngrok 之類的工具來在本地端建立一個可以從外部存取的 URL，讓 GitHub 可以將事件推送到這個 URL。這樣做需要安裝並設定 ngrok，並將 Jenkins Webhooks URL 設定為 ngrok 提供的 URL。
+
+
+2. 以ngrok為例，在「Payload URL」欄位中，貼上你的 ngrok 網址，加上 /github-webhook/，例如：http://xxxxxxxxxx.ngrok.io/github-webhook/。
+
+3. 在「Content type」欄位中，選擇「application/json」。
+4. 在「Secret」欄位中，可以留空。
+5. 在「Which events would you like to trigger this webhook?」中，選擇「Just the push event」。
+6. 最後，點選下方的「Add webhook」按鈕即可。
+7. Webhooks / Manage webhook 中查看是不是有綠色勾勾即完成連結，若沒有請重新redelivery並檢查其他設定。
+---
+### 開始測試
+* push 到 github 檢視 jenkins 有無建置動作

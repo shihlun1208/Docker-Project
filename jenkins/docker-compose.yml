@@ -7,6 +7,13 @@ services:
       - "8080:8080"
       - "50000:50000"
     volumes:
-      - D:\Docker-Project\jenkins\jenkins_home:/var/jenkins_home
+      - D:\Docker-Project\jenkins\jenkins_home:/var/jenkins_home\
+    depends_on:
+      - python
+    command: bash -c "apt-get update && apt-get install -y sudo"
+  python:
+    container_name: python
+    image: python:3.9
 volumes:
   jenkins_home:
+  
